@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>{{wish.name}}</h1>
+
+    <b><p>Users who added product/item to their wishlist:</p></b>
+
+        {% for user in users %}
+        <p>{{user.name}}</p>
+        {% endfor %}
+
+
+        <a href="/logout">Logout</a>
+        <a href="/home">Home</a>
+    
+</body>
+</html>

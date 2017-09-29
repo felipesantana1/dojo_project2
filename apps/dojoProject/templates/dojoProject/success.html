@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Wish List Home Page</title>
+</head>
+<body>
+
+        <h1>Hello, {{user}}</h1>
+        
+            <a href="/logout">Logout</a>
+        
+            <br>
+            <br>
+        
+            <div>
+        
+                <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Added By</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for wish in mywish %}
+                    <tr>  
+                            <td><form action='/wish/{{wish.id}}' method='POST'>
+                                {% csrf_token %}
+                                <input type='submit' value='{{wish.name}}' id='link'>
+                            </form></td>
+                        <td>{{wish.user.name}}</td>
+                        <td>{{wish.created_at}}</td>
+                        <td><form action='/wish/delete/{{wish.id}}' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='Delete' id='link'>
+                        </form></td>   
+                    </tr>
+                    {% endfor %}
+                    {% for wish in wishes%}
+                    <tr>  
+                            <td><form action='/wish/{{wish.id}}' method='POST'>
+                                {% csrf_token %}
+                                <input type='submit' value='{{wish.name}}' id='link'>
+                            </form></td>
+                        <td>{{wish.user.name}}</td>
+                        <td>{{wish.created_at}}</td>
+                        {% if request.session.id %}
+                        <td><form action='/wish/remove/{{wish.id}}' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='Remove From my Wishlist' id='link'>
+                        </form></td> 
+                        {% endif %}  
+                    </tr>
+                    {% endfor %}
+                </table>
+        
+            </div>
+        
+            <br>
+            <br>
+        
+            <div>
+        
+                <table>
+                    <tr>
+                        <th>Item</th>
+                        <th>Add by</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                    {% for wish in ourwishes %}
+                    <tr>
+                        <td><form action='/wish/{{wish.id}}' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='{{wish.name}}' id='link'>
+                        </form></td>
+                        <td>{{wish.user.name}}</td>
+                        <td>{{wish.created_at}}</td>
+                        <td><form action='/wish/add/{{wish.id}}' method='POST'>
+                            {% csrf_token %}
+                            <input type='submit' value='Add to My Wishlist' id='link'> 
+                        </form></td>  
+                    </tr>
+                    {% endfor %}
+                 </table>
+        
+            </div>
+            <br>
+            <a href="/wish/add">Add Item to Wish List</a>
+    
+</body>
+</html>
